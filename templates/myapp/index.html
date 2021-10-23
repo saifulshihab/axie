@@ -1,0 +1,38 @@
+{% extends 'base/index.html' %} {% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Axies API</h1>
+    <p class="lead">Data from Axies</p>
+    <hr class="my-4" />
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Name</th>
+            <th scope="col">Stage</th>
+            <th scope="col">Class</th>
+            <th scope="col">Breed Count</th>
+            <th scope="col">Current Price</th>
+            <th scope="col">Current Price USD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">1</td>
+            <td>title</td>
+            <td>S19</td>
+            <td>4</td>
+            <td>Aquatic</td>
+            <td>1</td>
+            <td>3000000</td>
+            <td>121.4D</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
