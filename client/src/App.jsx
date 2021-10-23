@@ -82,7 +82,7 @@ function App() {
                   <th scope="col">Title</th>
                   <th scope="col">Name</th>
                   <th scope="col">Stage</th>
-                  <th scope="col">className</th>
+                  <th scope="col">Class</th>
                   <th scope="col">Breed Count</th>
                   <th scope="col">Current Price</th>
                   <th scope="col">Current Price USD</th>
@@ -95,7 +95,7 @@ function App() {
                     <td>{item.title ? item.title : "-"}</td>
                     <td>{item.name}</td>
                     <td>{item.stage}</td>
-                    <td>{item.className}</td>
+                    <td>{item.class}</td>
                     <td>{item.breedCount}</td>
                     <td>
                       {item.auction?.currentPrice
