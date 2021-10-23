@@ -47,6 +47,7 @@ function App() {
       from: 0,
       size: limit,
     },
+    notifyOnNetworkStatusChange: true,
   });
 
   useEffect(() => {
