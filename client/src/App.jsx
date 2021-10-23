@@ -36,9 +36,15 @@ const GET_AXIE_BRIEF_LIST = gql`
 `;
 function App() {
   const [limit, setLimit] = useState(10);
+  const [auctionType, setAuctionType] = useState("Sale");
 
   const { loading, error, data } = useQuery(GET_AXIE_BRIEF_LIST, {
-    variables: { auctionType: "Sale", from: 0, size: limit, sort: "PriceAsc" },
+    variables: {
+      auctionType: auctionType,
+      from: 0,
+      size: limit,
+      sort: "PriceAsc",
+    },
   });
   return (
     <div className="container">
@@ -46,30 +52,35 @@ function App() {
         <h1 className="display-4">Axies API</h1>
         <p className="lead">Data from Axies</p>
         <hr className="my-4" />
-        <div>
-          <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between">
+          <div>
             <p className="fw-bold">Showing {limit} results</p>
-            {/* <select
-              value={limit}
-              onChange={(e) => setLimit(parseInt(e.target.value))}
-              name="limitSelect"
-              id="limitSelect"
+          </div>
+          <div>
+            <select
+              className="form-select"
+              value={auctionType}
+              onChange={(e) => setAuctionType(e.target.value)}
+              name="setAuctionType"
+              id="setAuctionType"
             >
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select> */}
+              <option value="All">All</option>
+              <option value="Sale">For sale</option>
+              <option value="NotForSale">Not for sale</option>
+            </select>
+          </div>
+          <div>
             <input
+              className="form-control"
               value={limit ? limit : 0}
               style={{
-                border: "1px solid #ddd",
-                textAlign: "center",
                 outline: "none",
               }}
               onChange={(e) => setLimit(parseInt(e.target.value))}
             />
           </div>
+        </div>
+        <div>
           {loading ? (
             <Loader />
           ) : error ? (
