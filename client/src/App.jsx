@@ -49,7 +49,7 @@ function App() {
         <div>
           <div className="d-flex justify-content-between">
             <p className="fw-bold">Showing {limit} results</p>
-            <select
+            {/* <select
               value={limit}
               onChange={(e) => setLimit(parseInt(e.target.value))}
               name="limitSelect"
@@ -59,7 +59,16 @@ function App() {
               <option value={20}>20</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
-            </select>
+            </select> */}
+            <input
+              value={limit ? limit : 0}
+              style={{
+                border: "1px solid #ddd",
+                textAlign: "center",
+                outline: "none",
+              }}
+              onChange={(e) => setLimit(parseInt(e.target.value))}
+            />
           </div>
           {loading ? (
             <Loader />
