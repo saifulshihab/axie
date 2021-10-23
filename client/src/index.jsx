@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 const client = new ApolloClient({
   uri: "https://axieinfinity.com/graphql-server-v2/graphql",
@@ -12,14 +13,17 @@ const client = new ApolloClient({
       Axies: {
         fields: {
           results: {
-            keyArgs: [],
-            merge(existing = [], incoming) {
-              console.log("existing", existing);
-              console.log("Incoming", incoming);
-              const mergedData = [...existing, ...incoming];
-              console.log("MERGED DATA", mergedData);
-              return mergedData;
-            },
+            // merge(existing = [], incoming) {
+            //   console.log("existing", existing);
+            //   console.log("Incoming", incoming);
+            //   const mergedData = [...existing, ...incoming];
+            //   console.log("MERGED DATA", mergedData);
+            //   // return mergedData;
+            //   return incoming;
+            // },
+
+            ...offsetLimitPagination(),
+            read(existing, { args }) {},
           },
         },
       },

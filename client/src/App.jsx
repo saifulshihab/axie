@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "./components/Loader";
 
 const GET_AXIE_BRIEF_LIST = gql`
@@ -36,6 +36,8 @@ const GET_AXIE_BRIEF_LIST = gql`
 `;
 
 function App() {
+  const [axieData, setAxieData] = useState({ axies: { results: [] } });
+
   const [limit, setLimit] = useState(10);
   const [auctionType, setAuctionType] = useState("Sale");
 
@@ -46,6 +48,12 @@ function App() {
       size: limit,
     },
   });
+
+  useEffect(() => {
+    if (data) {
+      setAxieData(data);
+    }
+  }, [data]);
 
   console.log("DATA", data);
 
@@ -88,7 +96,8 @@ function App() {
               fetchMore({
                 variables: {
                   auctionType: auctionType,
-                  from: data.axies?.results?.length,
+                  from: axieData.axies?.results?.length,
+                  size: limit,
                 },
               })
             }
@@ -101,7 +110,7 @@ function App() {
             <Loader />
           ) : error ? (
             "Failed to load data.."
-          ) : data && data.axies?.results?.length ? (
+          ) : axieData && axieData.axies?.results?.length ? (
             <table className="table table-striped">
               <thead>
                 <tr>
