@@ -71,7 +71,7 @@ function App() {
           </div>
           <div>
             <input
-              className="form-control"
+              className="form-control text-end"
               value={limit ? limit : 0}
               style={{
                 outline: "none",
