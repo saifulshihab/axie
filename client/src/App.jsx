@@ -21,8 +21,6 @@ const GET_AXIE_BRIEF_LIST = gql`
 `;
 function App() {
   const { loading, error, data } = useQuery(GET_AXIE_BRIEF_LIST);
-
-  console.log(data);
   return (
     <div class="container">
       <div class="jumbotron">
