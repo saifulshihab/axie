@@ -7,7 +7,24 @@ import reportWebVitals from "./reportWebVitals";
 
 const client = new ApolloClient({
   uri: "https://axieinfinity.com/graphql-server-v2/graphql",
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Axies: {
+        fields: {
+          results: {
+            keyArgs: [],
+            merge(existing = [], incoming) {
+              console.log("existing", existing);
+              console.log("Incoming", incoming);
+              const mergedData = [...existing, ...incoming];
+              console.log("MERGED DATA", mergedData);
+              return mergedData;
+            },
+          },
+        },
+      },
+    },
+  }),
 });
 
 ReactDOM.render(

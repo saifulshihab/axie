@@ -34,18 +34,21 @@ const GET_AXIE_BRIEF_LIST = gql`
     }
   }
 `;
+
 function App() {
   const [limit, setLimit] = useState(10);
   const [auctionType, setAuctionType] = useState("Sale");
 
-  const { loading, error, data } = useQuery(GET_AXIE_BRIEF_LIST, {
+  const { loading, error, data, fetchMore } = useQuery(GET_AXIE_BRIEF_LIST, {
     variables: {
       auctionType: auctionType,
       from: 0,
       size: limit,
-      sort: "PriceAsc",
     },
   });
+
+  console.log("DATA", data);
+
   return (
     <div className="container">
       <div className="jumbotron">
@@ -79,13 +82,26 @@ function App() {
               onChange={(e) => setLimit(parseInt(e.target.value))}
             />
           </div>
+          <button
+            className="btn btn-info"
+            onClick={() =>
+              fetchMore({
+                variables: {
+                  auctionType: auctionType,
+                  from: data.axies?.results?.length,
+                },
+              })
+            }
+          >
+            {loading ? "Loading..." : "Load more"}
+          </button>
         </div>
         <div>
           {loading ? (
             <Loader />
           ) : error ? (
             "Failed to load data.."
-          ) : data && data.axies?.results?.length > 0 ? (
+          ) : data && data.axies?.results?.length ? (
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -100,8 +116,8 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {data.axies?.results?.map((item) => (
-                  <tr>
+                {data.axies?.results?.map((item, idx) => (
+                  <tr key={idx}>
                     <td>{item.id}</td>
                     <td>{item.title ? item.title : "-"}</td>
                     <td>{item.name}</td>
